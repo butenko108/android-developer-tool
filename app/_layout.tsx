@@ -1,10 +1,42 @@
-import { Stack } from 'expo-router';
+import { Tabs } from "expo-router";
 
 export default function RootLayout() {
-  return (
-    <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="index" />
-      <Stack.Screen name="webview" />
-    </Stack>
-  );
+	return (
+		<Tabs screenOptions={{ headerShown: false }}>
+			<Tabs.Screen
+				name="index"
+				options={{
+					title: "Monitor",
+					tabBarIcon: () => null,
+				}}
+			/>
+			<Tabs.Screen
+				name="settings"
+				options={{
+					title: "Settings",
+					tabBarIcon: () => null,
+				}}
+			/>
+			<Tabs.Screen
+				name="performance"
+				options={{
+					title: "Performance",
+					tabBarIcon: () => null,
+				}}
+			/>
+			<Tabs.Screen
+				name="network"
+				options={{
+					title: "Network",
+					tabBarIcon: () => null,
+				}}
+			/>
+			<Tabs.Screen
+				name="webview"
+				options={{
+					href: null, // Скрываем из таба
+				}}
+			/>
+		</Tabs>
+	);
 }
