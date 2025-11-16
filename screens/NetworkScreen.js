@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import {
+	Platform,
 	ScrollView,
+	StatusBar,
 	StyleSheet,
 	Text,
 	TouchableOpacity,
@@ -112,8 +114,10 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: "#fff",
-		padding: 20,
-		paddingTop: 50,
+		paddingTop:
+			Platform.OS === "android" ? (StatusBar.currentHeight || 0) + 20 : 20,
+		paddingHorizontal: 20,
+		paddingBottom: 20,
 	},
 	title: {
 		fontSize: 24,

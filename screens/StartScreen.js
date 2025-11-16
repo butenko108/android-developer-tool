@@ -2,12 +2,14 @@ import MetricCard from "@/components/MetricCard";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import {
+	Platform,
 	Alert,
 	ScrollView,
 	StyleSheet,
 	Text,
 	TouchableOpacity,
 	View,
+	StatusBar
 } from "react-native";
 
 export default function StartScreen() {
@@ -134,8 +136,10 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: "#fff",
-		padding: 20,
-		paddingTop: 50,
+		paddingTop:
+			Platform.OS === "android" ? (StatusBar.currentHeight || 0) + 20 : 20,
+		paddingHorizontal: 20,
+		paddingBottom: 20,
 	},
 	title: {
 		fontSize: 24,

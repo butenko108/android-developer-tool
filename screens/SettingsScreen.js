@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+	Platform,
 	Alert,
 	ScrollView,
 	StyleSheet,
@@ -7,6 +8,7 @@ import {
 	Text,
 	TouchableOpacity,
 	View,
+	StatusBar,
 } from "react-native";
 
 export default function SettingsScreen() {
@@ -32,122 +34,133 @@ export default function SettingsScreen() {
 	};
 
 	return (
-		<ScrollView style={styles.container}>
-			<Text style={styles.title}>Settings</Text>
+		<View style={styles.wrapper}>
+			<ScrollView
+				style={styles.container}
+				contentContainerStyle={styles.contentContainer}
+			>
+				<Text style={styles.title}>Settings</Text>
 
-			{/* Developer Options */}
-			<View style={styles.section}>
-				<Text style={styles.sectionTitle}>Developer Options</Text>
+				{/* Developer Options */}
+				<View style={styles.section}>
+					<Text style={styles.sectionTitle}>Developer Options</Text>
 
-				<View style={styles.settingRow}>
-					<Text style={styles.settingLabel}>Enable USB Debugging</Text>
-					<Switch
-						value={settings.usbDebugging}
-						onValueChange={() => toggleSetting("usbDebugging")}
-						trackColor={{ false: "#ccc", true: "#0088cc" }}
-					/>
+					<View style={styles.settingRow}>
+						<Text style={styles.settingLabel}>Enable USB Debugging</Text>
+						<Switch
+							value={settings.usbDebugging}
+							onValueChange={() => toggleSetting("usbDebugging")}
+							trackColor={{ false: "#ccc", true: "#0088cc" }}
+						/>
+					</View>
+
+					<View style={styles.settingRow}>
+						<Text style={styles.settingLabel}>Show CPU Usage Overlay</Text>
+						<Switch
+							value={settings.cpuOverlay}
+							onValueChange={() => toggleSetting("cpuOverlay")}
+							trackColor={{ false: "#ccc", true: "#0088cc" }}
+						/>
+					</View>
+
+					<View style={styles.settingRow}>
+						<Text style={styles.settingLabel}>Keep Screen Awake</Text>
+						<Switch
+							value={settings.keepAwake}
+							onValueChange={() => toggleSetting("keepAwake")}
+							trackColor={{ false: "#ccc", true: "#0088cc" }}
+						/>
+					</View>
+
+					<View style={styles.settingRow}>
+						<Text style={styles.settingLabel}>Enable Performance Mode</Text>
+						<Switch
+							value={settings.performanceMode}
+							onValueChange={() => toggleSetting("performanceMode")}
+							trackColor={{ false: "#ccc", true: "#0088cc" }}
+						/>
+					</View>
 				</View>
 
-				<View style={styles.settingRow}>
-					<Text style={styles.settingLabel}>Show CPU Usage Overlay</Text>
-					<Switch
-						value={settings.cpuOverlay}
-						onValueChange={() => toggleSetting("cpuOverlay")}
-						trackColor={{ false: "#ccc", true: "#0088cc" }}
-					/>
+				{/* Notification Settings */}
+				<View style={styles.section}>
+					<Text style={styles.sectionTitle}>Notification Settings</Text>
+
+					<View style={styles.settingRow}>
+						<Text style={styles.settingLabel}>System Alerts</Text>
+						<Switch
+							value={settings.systemAlerts}
+							onValueChange={() => toggleSetting("systemAlerts")}
+							trackColor={{ false: "#ccc", true: "#0088cc" }}
+						/>
+					</View>
+
+					<View style={styles.settingRow}>
+						<Text style={styles.settingLabel}>Battery Warnings</Text>
+						<Switch
+							value={settings.batteryWarnings}
+							onValueChange={() => toggleSetting("batteryWarnings")}
+							trackColor={{ false: "#ccc", true: "#0088cc" }}
+						/>
+					</View>
+
+					<View style={styles.settingRow}>
+						<Text style={styles.settingLabel}>Network Status</Text>
+						<Switch
+							value={settings.networkStatus}
+							onValueChange={() => toggleSetting("networkStatus")}
+							trackColor={{ false: "#ccc", true: "#0088cc" }}
+						/>
+					</View>
 				</View>
 
-				<View style={styles.settingRow}>
-					<Text style={styles.settingLabel}>Keep Screen Awake</Text>
-					<Switch
-						value={settings.keepAwake}
-						onValueChange={() => toggleSetting("keepAwake")}
-						trackColor={{ false: "#ccc", true: "#0088cc" }}
-					/>
+				{/* Log Settings */}
+				<View style={styles.section}>
+					<Text style={styles.sectionTitle}>Log Settings</Text>
+
+					<View style={styles.settingRow}>
+						<Text style={styles.settingLabel}>Log Level</Text>
+						<Text style={styles.settingValue}>{logLevel}</Text>
+					</View>
+
+					<View style={styles.settingRow}>
+						<Text style={styles.settingLabel}>Auto-clear old logs</Text>
+						<Switch
+							value={settings.autoClearLogs}
+							onValueChange={() => toggleSetting("autoClearLogs")}
+							trackColor={{ false: "#ccc", true: "#0088cc" }}
+						/>
+					</View>
+
+					<View style={styles.settingRow}>
+						<Text style={styles.settingLabel}>Max log size</Text>
+						<Text style={styles.settingValue}>100 MB</Text>
+					</View>
 				</View>
 
-				<View style={styles.settingRow}>
-					<Text style={styles.settingLabel}>Enable Performance Mode</Text>
-					<Switch
-						value={settings.performanceMode}
-						onValueChange={() => toggleSetting("performanceMode")}
-						trackColor={{ false: "#ccc", true: "#0088cc" }}
-					/>
-				</View>
-			</View>
+				{/* Save Button */}
+				<TouchableOpacity style={styles.saveButton} onPress={handleSave}>
+					<Text style={styles.saveButtonText}>Save Settings</Text>
+				</TouchableOpacity>
 
-			{/* Notification Settings */}
-			<View style={styles.section}>
-				<Text style={styles.sectionTitle}>Notification Settings</Text>
-
-				<View style={styles.settingRow}>
-					<Text style={styles.settingLabel}>System Alerts</Text>
-					<Switch
-						value={settings.systemAlerts}
-						onValueChange={() => toggleSetting("systemAlerts")}
-						trackColor={{ false: "#ccc", true: "#0088cc" }}
-					/>
-				</View>
-
-				<View style={styles.settingRow}>
-					<Text style={styles.settingLabel}>Battery Warnings</Text>
-					<Switch
-						value={settings.batteryWarnings}
-						onValueChange={() => toggleSetting("batteryWarnings")}
-						trackColor={{ false: "#ccc", true: "#0088cc" }}
-					/>
-				</View>
-
-				<View style={styles.settingRow}>
-					<Text style={styles.settingLabel}>Network Status</Text>
-					<Switch
-						value={settings.networkStatus}
-						onValueChange={() => toggleSetting("networkStatus")}
-						trackColor={{ false: "#ccc", true: "#0088cc" }}
-					/>
-				</View>
-			</View>
-
-			{/* Log Settings */}
-			<View style={styles.section}>
-				<Text style={styles.sectionTitle}>Log Settings</Text>
-
-				<View style={styles.settingRow}>
-					<Text style={styles.settingLabel}>Log Level</Text>
-					<Text style={styles.settingValue}>{logLevel}</Text>
-				</View>
-
-				<View style={styles.settingRow}>
-					<Text style={styles.settingLabel}>Auto-clear old logs</Text>
-					<Switch
-						value={settings.autoClearLogs}
-						onValueChange={() => toggleSetting("autoClearLogs")}
-						trackColor={{ false: "#ccc", true: "#0088cc" }}
-					/>
-				</View>
-
-				<View style={styles.settingRow}>
-					<Text style={styles.settingLabel}>Max log size</Text>
-					<Text style={styles.settingValue}>100 MB</Text>
-				</View>
-			</View>
-
-			{/* Save Button */}
-			<TouchableOpacity style={styles.saveButton} onPress={handleSave}>
-				<Text style={styles.saveButtonText}>Save Settings</Text>
-			</TouchableOpacity>
-
-			<View style={{ height: 40 }} />
-		</ScrollView>
+				<View style={{ height: 100 }} />
+			</ScrollView>
+		</View>
 	);
 }
 
 const styles = StyleSheet.create({
-	container: {
+	wrapper: {
 		flex: 1,
 		backgroundColor: "#fff",
+		paddingTop: Platform.OS === "android" ? StatusBar.currentHeight || 0 : 0,
+	},
+	container: {
+		flex: 1,
+	},
+	contentContainer: {
 		padding: 20,
-		paddingTop: 50,
+		paddingBottom: 100,
 	},
 	title: {
 		fontSize: 24,

@@ -34,7 +34,8 @@ export default function RootLayout() {
 			<Tabs.Screen
 				name="webview"
 				options={{
-					href: null, // Скрываем из таба
+					href: null,
+					tabBarStyle: { display: "none" },
 				}}
 			/>
 		</Tabs>
