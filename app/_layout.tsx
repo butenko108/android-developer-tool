@@ -1,3 +1,4 @@
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { Tabs } from "expo-router";
 
 export default function RootLayout() {
@@ -7,28 +8,33 @@ export default function RootLayout() {
 				name="index"
 				options={{
 					title: "Monitor",
-					tabBarIcon: () => null,
+					tabBarIcon: ({ color, size }) => (
+						<MaterialIcons name="dashboard" size={size} color={color} />
+					),
 				}}
 			/>
 			<Tabs.Screen
 				name="settings"
 				options={{
 					title: "Settings",
-					tabBarIcon: () => null,
+					tabBarIcon: ({ color, size }) => (
+						<MaterialIcons name="settings" size={size} color={color} />
+					),
 				}}
 			/>
 			<Tabs.Screen
 				name="performance"
 				options={{
 					title: "Performance",
-					tabBarIcon: () => null,
+					tabBarIcon: ({ color, size }) => (
+						<MaterialIcons name="speed" size={size} color={color} />
+					),
 				}}
 			/>
 			<Tabs.Screen
 				name="network"
 				options={{
-					title: "Network",
-					tabBarIcon: () => null,
+					href: null,
 				}}
 			/>
 			<Tabs.Screen

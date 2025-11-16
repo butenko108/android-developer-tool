@@ -1,14 +1,14 @@
 import { useState } from "react";
 import {
-	Platform,
 	Alert,
+	Platform,
 	ScrollView,
+	StatusBar,
 	StyleSheet,
 	Switch,
 	Text,
 	TouchableOpacity,
 	View,
-	StatusBar,
 } from "react-native";
 
 export default function SettingsScreen() {
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
 	},
 	contentContainer: {
 		padding: 20,
-		paddingBottom: 100,
+		paddingBottom: 30,
 	},
 	title: {
 		fontSize: 24,
